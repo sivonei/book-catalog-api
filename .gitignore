@@ -1,0 +1,23 @@
+# Ignore Python bytecode files
+# Bytecode files
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Virtual Environment
+.venv/
+env/
+venv/
+
+# Django
+*.log
+*.pot
+*.pyc
+
+# VSCode
+.vscode/
+
+# System files
+.DS_Store

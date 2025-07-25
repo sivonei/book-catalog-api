@@ -7,17 +7,17 @@ from rest_framework import status
 # This module contains tests for the Book Catalog API.
 
 
-class BookTests(TestCase):
-    # Test cases for the Book Catalog API
-    # This class contains tests for creating, listing, and deleting books.
-    def setUp(self):
-        self.client = APIClient()
-        self.book_data = {
-            "title": "Test Book",
-            "author": "Author Name",
-            "isbn": "1234567890123",
-            "published_date": "2020-01-01"
-        }
+def setUp(self):
+    self.client = APIClient()
+    self.book_data = {
+        "title": "Test Book",
+        "author": "Author Name",
+        "isbn": "1234567890123",
+        "published_date": "2020-01-01"
+    }
+    # This method sets up the test client and sample book data.
+    self.book = Book.objects.create(**self.book_data)
+
     # Test setup for Book Catalog API
     # This method sets up the test client and sample book data.
 

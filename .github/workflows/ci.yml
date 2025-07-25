@@ -1,0 +1,55 @@
+name: Django CI
+
+# This workflow will build and test a Django application using PostgreSQL as the database.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# The workflow will run on the latest version of Ubuntu.
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    services: # Define the PostgreSQL service
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env: # Environment variables for the Django application
+      POSTGRES_DB: test_db
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      DB_HOST: localhost
+      DB_PORT: 5432
+    
+    
+    steps: # Checkout the code and set up the environment
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        python manage.py migrate
+        python manage.py test

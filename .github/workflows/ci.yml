@@ -56,6 +56,14 @@ jobs:
         python manage.py migrate
         python manage.py test
     
+    # Build and push Docker image to GitHub Container Registry (GHCR)
+    - name: Login to GHCR
+      uses: docker/login-action@v3
+      with: # Login to GitHub Container Registry
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+    
     # Build and push Docker image
     - name: Build and push Docker image to GHCR
       env:
@@ -64,3 +72,5 @@ jobs:
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
 
+
+        

@@ -53,3 +53,8 @@ jobs:
       run: |
         python manage.py migrate
         python manage.py test
+    
+    - name: Build and push Docker image
+      run: |
+        docker build -t ghcr.io/sivonei/book-catalog-api:latest .
+        docker push ghcr.io/sivonei/book-catalog-api:latest

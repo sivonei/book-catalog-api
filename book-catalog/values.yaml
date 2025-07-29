@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image: # The image repository and tag for the book catalog API
+  repository: ghcr.io/sivonei/book-catalog-api
+  pullPolicy: IfNotPresent
+  tag: latest
+
+#service: 
+#  type: ClusterIP
+#  port: 8000
+
+service:
+  type: NodePort
+  port: 8000
+
+
+env: 
+  POSTGRES_DB: book_db
+  POSTGRES_USER: book_user
+  POSTGRES_PASSWORD: book_pass
+  DB_HOST: postgres
+  DB_PORT: 5432
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: []
